@@ -48,7 +48,10 @@ def foo():
 
 def run_app():
     app.run(
-        app.config.get('SERVER_NAME', 'localhost'),
+        app.config.get(
+            'INTERNAL_SERVER_NAME',
+            app.config.get('SERVER_NAME', 'localhost')
+        ),
         app.config.get('SERVER_PORT', 5000),
         debug=app.config.get('DEBUG', False)
     )
