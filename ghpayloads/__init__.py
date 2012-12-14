@@ -48,8 +48,8 @@ log = logging.getLogger(__name__)
 
 @app.before_request
 def check_remote_ips():
-    log.debug('PRE: {0}  {1}'.format(app.view_functions, app.url_map))
     if request.remote_addr not in ('127.0.0.1',) + GH_PAYLOAD_IPS:
+        # Only accept requests from GitHub, or localhost for develoment
         abort(401)
 
 
