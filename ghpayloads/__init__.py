@@ -53,15 +53,21 @@ def check_remote_ips():
         abort(401)
 
 
-@app.route('/', methods=['GET', 'POST'])
-#@app.route('/')
+@app.route('/', methods=['POST'])
 def index():
-    print 4
-    log.debug(
-        'Incoming GitHub payload:\n{0}'.format(
-            pprint.pformat(json.loads(request.data), indent=2)
+    try:
+        log.debug(
+            'Incoming GitHub payload:\n{0}'.format(
+                pprint.pformat(
+                    json.loads(request.form.get('payload')),
+                    indent=2
+                )
+            )
         )
-    )
+    except:
+        log.debug('RAW DATA: {0}'.format(request.data))
+        log.debug('Args: {0}'.format(request.args))
+        log.debug('Values: {0}'.format(request.values))
     return jsonify({'result': 'OK'})
 
 

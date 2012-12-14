@@ -13,7 +13,7 @@ import os
 
 DEBUG = True
 SERVER_PORT = 5123
-SERVER_NAME = None
+SERVER_NAME = 'gh-payloads.ufsoft.org'
 INTERNAL_SERVER_NAME = 'localhost'
 PROPAGATE_EXCEPTIONS = True
 LOGFILE = os.path.join(os.path.dirname(__file__), 'gh-payloads.log')
