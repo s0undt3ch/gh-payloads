@@ -10,6 +10,7 @@
     :license: BSD, see LICENSE for more details.
 """
 
+import sys
 import logging
 import pprint
 from flask import abort, Flask, json, jsonify, request
@@ -24,12 +25,23 @@ GH_PAYLOAD_IPS = (
 )
 
 
-logging.basicConfig(
-    filename=app.config.get('LOGFILE', '/tmp/gh-payloads.log'),
-    level=logging.DEBUG,
-    datefmt='%Y-%m-%d %H:%M:%S',
-    format='%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'
+formatter = logging.Formatter(
+    '%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 )
+
+logfile = logging.FileHandler(app.config.get('LOGFILE', '/tmp/gh-payloads.log'))
+logfile.setLevel(logging.DEBUG)
+logfile.setFormatter(formatter)
+
+console = logging.StreamHandler(sys.stdout)
+console.setLevel(logging.DEBUG)
+console.setFormatter(formatter)
+
+logging.getLogger().addHandler(console)
+logging.getLogger().addHandler(logfile)
+logging.getLogger().setLevel(logging.DEBUG)
+
 
 log = logging.getLogger(__name__)
 
