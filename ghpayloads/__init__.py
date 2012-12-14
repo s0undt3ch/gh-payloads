@@ -10,6 +10,8 @@
     :license: BSD, see LICENSE for more details.
 """
 
+import logging
+import pprint
 from flask import abort, Flask, json, jsonify, request
 from werkzeug.contrib.fixers import ProxyFix
 
@@ -22,9 +24,19 @@ GH_PAYLOAD_IPS = (
 )
 
 
+logging.basicConfig(
+    filename=app.config.get('LOGFILE', '/tmp/gh-payloads.log'),
+    level=logging.DEBUG,
+    datefmt='%Y-%m-%d %H:%M:%S',
+    format='%(asctime)s,%(msecs)03.0f [%(name)-17s][%(levelname)-8s] %(message)s'
+)
+
+log = logging.getLogger(__name__)
+
+
 @app.before_request
 def check_remote_ips():
-    app.logger.debug('PRE: {0}  {1}'.format(app.view_functions, app.url_map))
+    log.debug('PRE: {0}  {1}'.format(app.view_functions, app.url_map))
     if request.remote_addr not in ('127.0.0.1',) + GH_PAYLOAD_IPS:
         abort(401)
 
@@ -33,9 +45,9 @@ def check_remote_ips():
 #@app.route('/')
 def index():
     print 4
-    app.logger.debug(
+    log.debug(
         'Incoming GitHub payload:\n{0}'.format(
-            json.loads(request.data)
+            pprint.pformat(json.loads(request.data), indent=2)
         )
     )
     return jsonify({'result': 'OK'})

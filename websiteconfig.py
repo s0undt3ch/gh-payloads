@@ -9,9 +9,11 @@
     :copyright: © 2012 by the UfSoft.org Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
+import os
 
-DEBUG=True
-SERVER_PORT=5123
-SERVER_NAME=None
-INTERNAL_SERVER_NAME='localhost'
-PROPAGATE_EXCEPTIONS=True
+DEBUG = True
+SERVER_PORT = 5123
+SERVER_NAME = None
+INTERNAL_SERVER_NAME = 'localhost'
+PROPAGATE_EXCEPTIONS = True
+LOGFILE = os.path.join(os.path.dirname(__file__), 'gh-payloads.log')
