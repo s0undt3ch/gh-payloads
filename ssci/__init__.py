@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-    ghpayloads
-    ~~~~~~~~~~
-
-    Simple flask application which will get hit with GitHub payloads.
+'''
+    SaltStack Continuous Integration
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :codeauthor: :email:`Pedro Algarvio (pedro@algarvio.me)`
-    :copyright: © 2012 by the UfSoft.org Team, see AUTHORS for more details.
-    :license: BSD, see LICENSE for more details.
-"""
+    :copyright: © 2012 by the SaltStack Team, see AUTHORS for more details.
+    :license: Apache 2.0, see LICENSE for more details.
+'''
 
 import sys
 import logging
